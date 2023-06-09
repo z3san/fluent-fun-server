@@ -31,7 +31,13 @@ async function run() {
     await client.connect();
     const usersCollection = client.db("fluentfun").collection("users");
 
-   
+    // Get all users
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+
+
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
