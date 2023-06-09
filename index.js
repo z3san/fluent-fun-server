@@ -60,6 +60,18 @@ app.patch('/users/admin/:id', async (req, res) => {
   const result = await usersCollection.updateOne(filter, updateDoc);
   res.send(result);
 })
+app.patch('/users/instructor/:id', async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const filter = { _id: new ObjectId(id) };
+  const updateDoc = {
+    $set: {
+      role: 'instructor'
+    },
+  };
+  const result = await usersCollection.updateOne(filter, updateDoc);
+  res.send(result);
+})
 
 
     await client.db("admin").command({ ping: 1 });
