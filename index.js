@@ -72,16 +72,16 @@ app.patch('/users/instructor/:id', async (req, res) => {
   const result = await usersCollection.updateOne(filter, updateDoc);
   res.send(result);
 })
+//delete user
+
+app.delete('/users/:id', async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) }
+  const result = await usersCollection.deleteOne(query);
+  res.send(result);
+})
 
 
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-  } finally {
-    // await client.close();
-  }
-}
 
 run().catch(console.dir);
 
