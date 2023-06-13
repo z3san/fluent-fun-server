@@ -1,14 +1,18 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-require("dotenv").config();
-
-const cors = require("cors");
 const port = process.env.PORT || 5000;
 const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 
-// Middleware
-app.use(cors());
+const cors = require("cors");
+const corsOptions ={
+  origin:'*', 
+  credentials:true,
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 app.get('/', (req, res) => {
