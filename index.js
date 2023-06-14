@@ -178,7 +178,7 @@ app.put("/payments/:id", async (req, res) => {
   };
   const query = { _id: new ObjectId(id) };
   const options = { upsert: true };
-  // console.log(payment);
+ 
   const result = await classesCartCollection.updateOne(query, updateDoc, options);
   res.send(result);
 });
@@ -191,30 +191,21 @@ app.put("/classUpdates/:id", async (req, res) => {
   };
   const query = { _id: new ObjectId(id) };
   const options = { upsert: true };
-  // console.log(payment);
+
   const result = await classesCollection.updateOne(query, updateDoc, options);
   res.send(result);
 });
 
 
 
-//sort 6 data
-app.get('/classes', async (req, res) => {
-  const enrolledStudent = Number(req.query.enrolledStudent); 
-  try {
-    const result = await classesCollection.find({ enrolledStudent: enrolledStudent }).sort({ enrolledStudent: -1 }).limit(6).toArray();
-    res.send(result);
-    console.log(data);
-  } catch (error) {
-    console.error('Error fetching data from MongoDB', error);
-    res.status(500).send({ error: 'Internal server error' });
-  }
+// sort 6 data of top classes and top instructors
+app.get("/sortClasses", async (req, res) => {
+  const result = await 
+    classesCollection.find()
+    .sort({ enrolledStudent: -1 }).limit(6)
+    .toArray();
+  res.send(result);
 });
-
-
-
-
-
 
 
 // Update class status to approved
